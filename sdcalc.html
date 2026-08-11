@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sample Standard Deviation Calculator</title>
+  <!-- MathJax for LaTeX rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    function generateInputs() {
+      const count = parseInt(document.getElementById("numCount").value);
+      const container = document.getElementById("inputsContainer");
+      container.innerHTML = "";
+
+      if (isNaN(count) || count < 2 || count > 10) {
+        container.innerHTML = "<p>Please enter a number between 2 and 10.</p>";
+        return;
+      }
+
+      for (let i = 1; i <= count; i++) {
+        const input = document.createElement("input");
+        input.type = "text"; // capture student-entered precision
+        input.className = "num-input";
+        input.placeholder = "Value " + i;
+        container.appendChild(input);
+      }
+    }
+
+    // Count decimals in a number string
+    function countDecimals(valueStr) {
+      if (valueStr.includes(".")) {
+        return valueStr.split(".")[1].length;
+      }
+      return 0;
+    }
+
+    // Count significant figures
+    function countSigFigs(valueStr) {
+      let str = valueStr.trim();
+      if (!str) return 0;
+      // Remove leading zeros
+      str = str.replace(/^0+/, "");
+      // If scientific notation
+      if (str.toLowerCase().includes("e")) {
+        str = str.split("e")[0];
+      }
+      // Remove decimal point
+      str = str.replace(".", "");
+      // Count remaining digits (not leading zeros)
+      return str.replace(/^0+/, "").length;
+    }
+
+    function calculateStdDev() {
+      const inputs = document.querySelectorAll('.num-input');
+      const values = [];
+      const decimalsArray = [];
+      const sigFigsArray = [];
+      
+      inputs.forEach(input => {
+        if (input.value.trim() !== "") {
+          const num = parseFloat(input.value);
+          if (!isNaN(num)) {
+            values.push(num);
+            decimalsArray.push(countDecimals(input.value.trim()));
+            sigFigsArray.push(countSigFigs(input.value.trim()));
+          }
+        }
+      });
+
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = "";
+
+      if (values.length < 2) {
+        resultDiv.textContent = "Please enter at least 2 values.";
+        return;
+      }
+
+      // Determine formatting from user input
+      const maxDecimals = Math.max(...decimalsArray);
+      const maxSigFigs = Math.max(...sigFigsArray);
+
+      // Format for table and entered values
+      function formatTable(num) {
+        if ((Math.abs(num) < 0.001 && num !== 0) || Math.abs(num) >= 100000) {
+          return num.toExponential(3); // scientific notation
+        } else {
+          return num.toFixed(maxDecimals);
+        }
+      }
+
+      // Format for mean (two more sig figs than user values)
+      function formatMean(num) {
+        return Number.parseFloat(num).toPrecision(maxSigFigs + 2);
+      }
+
+      // Format for final results (variance, std dev)
+      function formatFinal(num) {
+        if ((Math.abs(num) < 0.001 && num !== 0) || Math.abs(num) >= 100000) {
+          return num.toExponential(3);
+        } else {
+          return num.toFixed(maxDecimals + 1);
+        }
+      }
+
+      // Step 1: Mean
+      const mean = values.reduce((a, b) => a + b, 0) / values.length;
+
+      // Step 2: Deviations and squared deviations
+      const rows = values.map(val => {
+        const deviation = val - mean;
+        const squared = deviation * deviation;
+        return { val, deviation, squared };
+      });
+
+      // Step 3: Variance (sample)
+      const variance = rows.reduce((sum, r) => sum + r.squared, 0) / (values.length - 1);
+
+      // Step 4: Standard deviation
+      const stdDev = Math.sqrt(variance);
+
+      // Build table
+      let tableHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Value (x<sub>i</sub>)</th>
+              <th>Deviation (x<sub>i</sub> − 𝑥̄)</th>
+              <th>Squared Deviation (x<sub>i</sub> − 𝑥̄)²</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+
+      rows.forEach(r => {
+        tableHTML += `
+          <tr>
+            <td>${formatTable(r.val)}</td>
+            <td>${formatTable(r.deviation)}</td>
+            <td>${formatTable(r.squared)}</td>
+          </tr>
+        `;
+      });
+
+      tableHTML += `</tbody></table>`;
+
+      // Insert results
+      resultDiv.innerHTML = `
+        <h2>Results</h2>
+        <p><b>Formula:</b></p>
+        <p class="mathjax">\\[
+          s = \\sqrt{ \\frac{1}{n-1} \\sum_{i=1}^{n} (x_i - \\bar{x})^2 }
+        \\]</p>
+        <p><strong>Values:</strong> ${values.map(v => formatTable(v)).join(", ")}</p>
+        <p><strong>Mean (\\(\\bar{x}\\)):</strong> ${formatMean(mean)}</p>
+        ${tableHTML}
+        <p><strong>Variance:</strong> ${formatFinal(variance)}</p>
+        <p><strong>Sample Standard Deviation (s):</strong> ${formatFinal(stdDev)}</p>
+      `;
+
+      MathJax.typesetPromise();
+    }
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f8f9fa;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .inputs {
+      display: grid;
+      gap: 0.5rem;
+      max-width: 200px;
+      margin-bottom: 1rem;
+    }
+    input {
+      padding: 0.4rem;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+      margin-top: 0.5rem;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    #result p {
+      margin: 0.3rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    th {
+      background: #f1f1f1;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sample Standard Deviation Calculator</h1>
+  <p>How many values would you like to enter? (2–10)</p>
+  <input type="number" id="numCount" min="2" max="10" placeholder="e.g. 5">
+  <button onclick="generateInputs()">Set</button>
+  <div id="inputsContainer" class="inputs"></div>
+  <button onclick="calculateStdDev()">Calculate</button>
+  <div id="result"></div>
+</body>
+</html>
