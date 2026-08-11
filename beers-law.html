@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Beer's Law Linear Regression</title>
+  <!-- Chart.js for graphing -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- MathJax for LaTeX rendering -->
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script>
+    function generateInputs() {
+      const count = parseInt(document.getElementById("numCount").value);
+      const container = document.getElementById("inputsContainer");
+      container.innerHTML = "";
+
+      if (isNaN(count) || count < 2) {
+        container.innerHTML = "<p>Please enter at least 2 data points.</p>";
+        return;
+      }
+
+      for (let i = 1; i <= count; i++) {
+        const row = document.createElement("div");
+        row.className = "row";
+        row.innerHTML = `
+          <input type="number" step="any" class="x-input" placeholder="c${i}">
+          <input type="number" step="any" class="y-input" placeholder="Abs${i}">
+        `;
+        container.appendChild(row);
+      }
+    }
+
+    function calculateRegression() {
+      const xInputs = document.querySelectorAll('.x-input');
+      const yInputs = document.querySelectorAll('.y-input');
+      const cs = [], abs = [];
+
+      xInputs.forEach((x, i) => {
+        const xv = parseFloat(x.value);
+        const yv = parseFloat(yInputs[i].value);
+        if (!isNaN(xv) && !isNaN(yv)) {
+          cs.push(xv);
+          abs.push(yv);
+        }
+      });
+
+      if (cs.length < 2) {
+        document.getElementById("result").innerHTML = "Need at least 2 valid points.";
+        return;
+      }
+
+      // Compute means
+      const meanC = cs.reduce((a,b) => a+b,0) / cs.length;
+      const meanAbs = abs.reduce((a,b) => a+b,0) / abs.length;
+
+      // Compute slope (m) and intercept (b)
+      let num = 0, den = 0;
+      for (let i = 0; i < cs.length; i++) {
+        num += (cs[i] - meanC) * (abs[i] - meanAbs);
+        den += (cs[i] - meanC) ** 2;
+      }
+      const m = num / den;
+      const b = meanAbs - m * meanC;
+
+      // Compute R^2
+      let ssRes = 0, ssTot = 0;
+      const predicted = [];
+      const residuals = [];
+      for (let i = 0; i < cs.length; i++) {
+        const absPred = m * cs[i] + b;
+        predicted.push(absPred);
+        residuals.push(abs[i] - absPred);
+        ssRes += (abs[i] - absPred) ** 2;
+        ssTot += (abs[i] - meanAbs) ** 2;
+      }
+      const r2 = 1 - (ssRes / ssTot);
+
+      // Build results: graph container, then equations, then table
+      let html = `
+        <div id="chart-container">
+          <canvas id="chart"></canvas>
+        </div>
+        <div class="eqns">
+          <p><b>Equations:</b></p>
+          <p>\\[ \\text{Abs} = ${m.toFixed(1)}c + ${b.toFixed(4)} \\]</p>
+          <p>\\[ c = \\frac{\\text{Abs} - (${b.toFixed(4)})}{${m.toFixed(1)}} \\]</p>
+          <p><b>R²:</b> ${r2.toFixed(4)}</p>
+        </div>
+        <h3>Data Table</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>c</th>
+              <th>Abs</th>
+              <th>Predicted (Â)</th>
+              <th>Residual (Abs - Â)</th>
+            </tr>
+          </thead>
+          <tbody>
+      `;
+      for (let i = 0; i < cs.length; i++) {
+        html += `
+          <tr>
+            <td>${cs[i]}</td>
+            <td>${abs[i]}</td>
+            <td>${predicted[i].toFixed(4)}</td>
+            <td>${residuals[i].toFixed(4)}</td>
+          </tr>
+        `;
+      }
+      html += "</tbody></table>";
+
+      document.getElementById("result").innerHTML = html;
+      MathJax.typesetPromise();
+
+      // Plot with Chart.js
+      const ctx = document.getElementById('chart').getContext('2d');
+      if (window.regChart) {
+        window.regChart.destroy();
+      }
+
+      // scatter data
+      const scatterData = cs.map((c,i) => ({x: c, y: abs[i]}));
+
+      // regression line
+      const minC = Math.min(...cs);
+      const maxC = Math.max(...cs);
+      const lineData = [
+        {x: minC, y: m*minC + b},
+        {x: maxC, y: m*maxC + b}
+      ];
+
+      window.regChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+          datasets: [
+            {
+              label: 'Data Points',
+              data: scatterData,
+              backgroundColor: 'blue'
+            },
+            {
+              label: 'Regression Line',
+              data: lineData,
+              type: 'line',
+              borderColor: 'red',
+              borderWidth: 2,
+              fill: false,
+              pointRadius: 0
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          scales: {
+            x: { type: 'linear', position: 'bottom', title: { display: true, text: 'c (concentration)' }},
+            y: { title: { display: true, text: 'Abs (absorbance)' }}
+          }
+        }
+      });
+    }
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f8f9fa;
+    }
+    h1 { font-size: 1.5rem; }
+    .row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 0.3rem;
+    }
+    input {
+      padding: 0.3rem;
+      width: 80px;
+    }
+    button {
+      margin: 0.5rem 0;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 6px;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    #result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: #fff;
+      border-radius: 6px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      text-align: center;
+    }
+    th {
+      background: #f1f1f1;
+    }
+    #chart-container {
+      max-width: 600px;
+      height: 400px;
+      margin: 1rem auto; /* centers the chart */
+    }
+    canvas {
+      width: 100% !important;
+      height: 100% !important;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      display: block;
+      margin: 0 auto;
+    }
+    .eqns {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>Beer's Law Linear Regression</h1>
+  <p>How many data points would you like to enter?</p>
+  <input type="number" id="numCount" min="2" max="50" placeholder="e.g. 5">
+  <button onclick="generateInputs()">Set</button>
+  <div id="inputsContainer"></div>
+  <button onclick="calculateRegression()">Calculate Regression</button>
+  <div id="result"></div>
+</body>
+</html>
