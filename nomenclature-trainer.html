@@ -1,0 +1,1363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nomenclature Mastery</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --success: #16a34a;
+            --danger: #dc2626;
+            --warning: #ca8a04;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, var(--primary), #3b82f6);
+            color: white;
+            margin-bottom: 30px;
+            border-radius: 0 0 30px 30px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--border);
+            background: var(--card);
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            color: var(--text);
+        }
+
+        .nav-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            border: 1px solid var(--border);
+        }
+
+        .card h2 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .rule-box {
+            background: #eff6ff;
+            border-left: 4px solid var(--primary);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .rule-box h3 {
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .rule-box ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .rule-box li {
+            margin-bottom: 6px;
+        }
+
+        .example {
+            background: #f0fdf4;
+            border: 1px solid #86efac;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+        }
+
+        .quiz-container {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .question {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: var(--primary);
+            margin: 30px 0;
+            font-family: 'Courier New', monospace;
+            background: #eff6ff;
+            padding: 25px;
+            border-radius: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+            align-items: stretch;
+        }
+
+        .chem-input-wrapper {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        input[type="text"] {
+            padding: 14px 20px;
+            font-size: 1.4rem;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            width: 340px;
+            text-align: center;
+            transition: border-color 0.3s;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        input[type="text"]:disabled {
+            background: #f1f5f9;
+            color: #94a3b8;
+            cursor: not-allowed;
+        }
+
+        .input-hint {
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            color: white;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+        }
+
+        .feedback {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            display: none;
+        }
+
+        .feedback.correct {
+            background: #dcfce7;
+            color: var(--success);
+            border: 1px solid #86efac;
+            display: block;
+        }
+
+        .feedback.incorrect {
+            background: #fee2e2;
+            color: var(--danger);
+            border: 1px solid #fca5a5;
+            display: block;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: var(--card);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            border: 1px solid var(--border);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .stat-value.danger {
+            color: var(--danger);
+        }
+
+        .stat-label {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--success);
+            transition: width 0.5s;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        th {
+            background: #f1f5f9;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        tr:hover {
+            background: #f8fafc;
+        }
+
+        .mode-selector {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .mode-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            background: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .mode-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .mode-btn.weakness-btn {
+            border-color: var(--danger);
+            color: var(--danger);
+        }
+
+        .mode-btn.weakness-btn.active {
+            background: var(--danger);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .hint {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .streak {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #fef3c7;
+            color: var(--warning);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .bank-size {
+            display: inline-block;
+            background: #e0e7ff;
+            color: var(--primary-dark);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            margin-left: 8px;
+            font-weight: 700;
+        }
+
+        .weakness-empty {
+            background: #f0fdf4;
+            border: 2px solid var(--success);
+            color: var(--success);
+            padding: 30px;
+            border-radius: 16px;
+            margin: 20px 0;
+        }
+
+        .weakness-empty h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .question { font-size: 1.6rem; }
+            input[type="text"] { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>⚗️ Nomenclature Mastery</h1>
+        <p>Master naming ionic compounds, binary molecular compounds, and acids</p>
+    </header>
+
+    <div class="container">
+        <div class="nav-tabs">
+            <button class="nav-btn active" onclick="showSection('dashboard')">📊 Dashboard</button>
+            <button class="nav-btn" onclick="showSection('learn')">📚 Learn</button>
+            <button class="nav-btn" onclick="showSection('practice')">✏️ Practice</button>
+            <button class="nav-btn" onclick="showSection('reference')">📖 Reference</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div id="dashboard" class="section active">
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-value" id="total-attempted">0</div>
+                    <div class="stat-label">Questions Attempted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="total-correct">0</div>
+                    <div class="stat-label">Correct Answers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="accuracy">0%</div>
+                    <div class="stat-label">Accuracy</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="current-streak">0</div>
+                    <div class="stat-label">Current Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value danger" id="weakness-count">0</div>
+                    <div class="stat-label">In Weakness Pool</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>📈 Topic Mastery</h2>
+                <div style="margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Ionic Compounds <span class="bank-size">90 items</span></span>
+                        <span id="ionic-pct">0%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="ionic-bar" style="width: 0%"></div></div>
+                </div>
+                <div style="margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Binary Molecular <span class="bank-size">57 items</span></span>
+                        <span id="molecular-pct">0%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="molecular-bar" style="width: 0%"></div></div>
+                </div>
+                <div style="margin: 15px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                        <span>Acids <span class="bank-size">42 items</span></span>
+                        <span id="acid-pct">0%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" id="acid-bar" style="width: 0%"></div></div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚙️ Settings</h2>
+                <p style="margin-bottom: 15px; color: #64748b;">Reset all your progress, stats, streaks, and weakness data. This action cannot be undone.</p>
+                <button class="btn btn-danger" onclick="resetProgress()">🗑️ Reset All Progress</button>
+            </div>
+        </div>
+
+        <!-- Learn -->
+        <div id="learn" class="section">
+            <div class="card">
+                <h2>🧪 Ionic Compounds</h2>
+                
+                <div class="rule-box">
+                    <h3>Type I: Metals with Fixed Charges</h3>
+                    <p>Group 1, 2, and metals like Al³⁺, Zn²⁺, Ag⁺ have fixed charges. Name: Metal + Nonmetal (change ending to -ide).</p>
+                    <div class="example">NaCl → Sodium chloride<br>CaBr₂ → Calcium bromide<br>Al₂O₃ → Aluminum oxide</div>
+                </div>
+
+                <div class="rule-box">
+                    <h3>Type II: Metals with Variable Charges</h3>
+                    <p>Transition metals often have multiple charges. Use Roman numerals in parentheses.</p>
+                    <div class="example">FeCl₂ → Iron(II) chloride (Fe²⁺)<br>FeCl₃ → Iron(III) chloride (Fe³⁺)<br>CuO → Copper(II) oxide (Cu²⁺)</div>
+                </div>
+
+                <div class="rule-box">
+                    <h3>Polyatomic Ions</h3>
+                    <p>Memorize common polyatomic ions. They keep their names in compounds. Watch for hydrogenated variants:</p>
+                    <ul>
+                        <li><strong>CO₃²⁻</strong> → carbonate; <strong>HCO₃⁻</strong> → hydrogen carbonate (or bicarbonate)</li>
+                        <li><strong>PO₄³⁻</strong> → phosphate; <strong>HPO₄²⁻</strong> → hydrogen phosphate; <strong>H₂PO₄⁻</strong> → dihydrogen phosphate</li>
+                        <li><strong>SO₄²⁻</strong> → sulfate; <strong>SO₃²⁻</strong> → sulfite</li>
+                    </ul>
+                    <div class="example">NaHCO₃ → Sodium hydrogen carbonate<br>CaHPO₄ → Calcium hydrogen phosphate<br>KH₂PO₄ → Potassium dihydrogen phosphate</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>⚛️ Binary Molecular Compounds</h2>
+                
+                <div class="rule-box">
+                    <h3>Naming Rules</h3>
+                    <ul>
+                        <li>Use Greek prefixes to indicate atom counts (mono-, di-, tri-, tetra-, penta-, hexa-, hepta-, octa-, nona-, deca-)</li>
+                        <li>Prefix on first element is dropped if there is only one atom</li>
+                        <li>Second element always gets prefix and -ide ending</li>
+                        <li>Element with lower electronegativity (more left/down in periodic table) is named first</li>
+                    </ul>
+                    <div class="example">CO → Carbon monoxide<br>CO₂ → Carbon dioxide<br>N₂O₄ → Dinitrogen tetroxide<br>PCl₅ → Phosphorus pentachloride</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>💧 Acids</h2>
+                
+                <div class="rule-box">
+                    <h3>Binary Acids (H + Nonmetal)</h3>
+                    <p>Use "hydro-" prefix and "-ic" suffix on the nonmetal root, followed by "acid".</p>
+                    <div class="example">HCl → Hydrochloric acid<br>H₂S → Hydrosulfuric acid<br>HBr → Hydrobromic acid</div>
+                </div>
+
+                <div class="rule-box">
+                    <h3>Oxyacids (H + Oxyanion)</h3>
+                    <p>If anion ends in -ate → acid ends in -ic. If anion ends in -ite → acid ends in -ous.</p>
+                    <div class="example">H₂SO₄ → Sulfuric acid (from sulfate)<br>H₂SO₃ → Sulfurous acid (from sulfite)<br>HNO₃ → Nitric acid<br>HNO₂ → Nitrous acid</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Practice -->
+        <div id="practice" class="section">
+            <div class="card">
+                <div class="mode-selector">
+                    <button class="mode-btn active" onclick="setMode('ionic')">Ionic</button>
+                    <button class="mode-btn" onclick="setMode('molecular')">Molecular</button>
+                    <button class="mode-btn" onclick="setMode('acid')">Acids</button>
+                    <button class="mode-btn" onclick="setMode('mixed')">Mixed</button>
+                    <button class="mode-btn weakness-btn" onclick="setMode('weakness')">🎯 Weakness</button>
+                </div>
+
+                <div class="mode-selector">
+                    <button class="mode-btn active" onclick="setDirection('formula-to-name')">Formula → Name</button>
+                    <button class="mode-btn" onclick="setDirection('name-to-formula')">Name → Formula</button>
+                </div>
+
+                <div class="quiz-container">
+                    <div style="display: flex; justify-content: center; gap: 15px; margin-bottom: 20px;">
+                        <span class="streak">🔥 Streak: <span id="streak-display">0</span></span>
+                    </div>
+                    
+                    <div id="question-type" style="color: #64748b; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;"></div>
+                    <div class="question" id="question">Loading...</div>
+                    
+                    <div class="input-group" id="input-group">
+                        <div class="chem-input-wrapper">
+                            <input type="text" id="answer-input" placeholder="Type your answer..." autocomplete="off">
+                            <span class="input-hint">Type normally — numbers auto-format as subscripts</span>
+                        </div>
+                        <button class="btn btn-primary" onclick="checkAnswer()">Submit</button>
+                        <button class="btn btn-warning" onclick="showHint()">Hint</button>
+                    </div>
+                    
+                    <div class="hint" id="hint-text"></div>
+                    
+                    <div class="feedback" id="feedback"></div>
+                    
+                    <div style="margin-top: 20px;">
+                        <button class="btn" style="background: #e2e8f0;" onclick="skipQuestion()">Skip Question</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reference -->
+        <div id="reference" class="section">
+            <div class="card">
+                <h2>📋 Polyatomic Ions</h2>
+                <table>
+                    <tr><th>Ion</th><th>Formula</th><th>Charge</th></tr>
+                    <tr><td>Ammonium</td><td>NH₄⁺</td><td>+1</td></tr>
+                    <tr><td>Hydroxide</td><td>OH⁻</td><td>-1</td></tr>
+                    <tr><td>Cyanide</td><td>CN⁻</td><td>-1</td></tr>
+					<tr><td>Cyanate</td><td>OCN⁻</td><td>-1</td></tr>
+					<tr><td>Thiocyanate</td><td>SCN⁻</td><td>-1</td></tr>
+                    <tr><td>Acetate</td><td>C₂H₃O₂⁻</td><td>-1</td></tr>
+                    <tr><td>Permanganate</td><td>MnO₄⁻</td><td>-1</td></tr>
+                    <tr><td>Nitrate</td><td>NO₃⁻</td><td>-1</td></tr>
+                    <tr><td>Nitrite</td><td>NO₂⁻</td><td>-1</td></tr>
+                    <tr><td>Chlorate</td><td>ClO₃⁻</td><td>-1</td></tr>
+                    <tr><td>Perchlorate</td><td>ClO₄⁻</td><td>-1</td></tr>
+                    <tr><td>Hydrogen carbonate (bicarbonate)</td><td>HCO₃⁻</td><td>-1</td></tr>
+                    <tr><td>Dihydrogen phosphate</td><td>H₂PO₄⁻</td><td>-1</td></tr>
+                    <tr><td>Carbonate</td><td>CO₃²⁻</td><td>-2</td></tr>
+                    <tr><td>Sulfate</td><td>SO₄²⁻</td><td>-2</td></tr>
+                    <tr><td>Sulfite</td><td>SO₃²⁻</td><td>-2</td></tr>
+                    <tr><td>Chromate</td><td>CrO₄²⁻</td><td>-2</td></tr>
+                    <tr><td>Dichromate</td><td>Cr₂O₇²⁻</td><td>-2</td></tr>
+                    <tr><td>Hydrogen phosphate</td><td>HPO₄²⁻</td><td>-2</td></tr>
+                    <tr><td>Phosphate</td><td>PO₄³⁻</td><td>-3</td></tr>
+                    <tr><td>Phosphite</td><td>PO₃³⁻</td><td>-3</td></tr>
+					  <tr><td>Borate</td><td>BO₃³⁻</td><td>-3</td></tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>🔢 Greek Prefixes</h2>
+                <table>
+                    <tr><th>Number</th><th>Prefix</th></tr>
+                    <tr><td>1</td><td>mono-</td></tr>
+                    <tr><td>2</td><td>di-</td></tr>
+                    <tr><td>3</td><td>tri-</td></tr>
+                    <tr><td>4</td><td>tetra-</td></tr>
+                    <tr><td>5</td><td>penta-</td></tr>
+                    <tr><td>6</td><td>hexa-</td></tr>
+                    <tr><td>7</td><td>hepta-</td></tr>
+                    <tr><td>8</td><td>octa-</td></tr>
+                    <tr><td>9</td><td>nona-</td></tr>
+                    <tr><td>10</td><td>deca-</td></tr>
+                </table>
+            </div>
+
+            <div class="card">
+                <h2>⚡ Common Transition Metal Charges</h2>
+                <table>
+                    <tr><th>Metal</th><th>Common Charges</th></tr>
+                    <tr><td>Copper (Cu)</td><td>+1, +2</td></tr>
+                    <tr><td>Iron (Fe)</td><td>+2, +3</td></tr>
+                    <tr><td>Lead (Pb)</td><td>+2, +4</td></tr>
+                    <tr><td>Tin (Sn)</td><td>+2, +4</td></tr>
+                    <tr><td>Mercury (Hg)</td><td>+1 (Hg₂²⁺), +2</td></tr>
+                    <tr><td>Chromium (Cr)</td><td>+2, +3, +6</td></tr>
+                    <tr><td>Manganese (Mn)</td><td>+2, +4, +7</td></tr>
+                    <tr><td>Cobalt (Co)</td><td>+2, +3</td></tr>
+                    <tr><td>Gold (Au)</td><td>+1, +3</td></tr>
+                    <tr><td>Nickel (Ni)</td><td>+2</td></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Subscript utilities
+        const TO_SUBSCRIPT = {
+            '0': '₀', '1': '₁', '2': '₂', '3': '₃', '4': '₄',
+            '5': '₅', '6': '₆', '7': '₇', '8': '₈', '9': '₉'
+        };
+        
+        const TO_NORMAL = {
+            '₀': '0', '₁': '1', '₂': '2', '₃': '3', '₄': '4',
+            '₅': '5', '₆': '6', '₇': '7', '₈': '8', '₉': '9'
+        };
+
+        function toSubscript(char) {
+            return TO_SUBSCRIPT[char] || char;
+        }
+
+        function toPlainText(str) {
+            return str.replace(/[₀₁₂₃₄₅₆₇₈₉]/g, c => TO_NORMAL[c] || c);
+        }
+
+        // Auto-format numbers after letters or closing parens as subscripts
+        function formatChemInput(input) {
+            const cursorPos = input.selectionStart;
+            const val = input.value;
+            let formatted = '';
+            
+            for (let i = 0; i < val.length; i++) {
+                const char = val[i];
+                const prev = val[i - 1];
+                if (/[0-9]/.test(char) && prev && /[a-zA-Z)]/.test(prev)) {
+                    formatted += toSubscript(char);
+                } else {
+                    formatted += char;
+                }
+            }
+            
+            if (formatted !== val) {
+                input.value = formatted;
+                input.setSelectionRange(cursorPos, cursorPos);
+            }
+        }
+
+        // Name aliases for common alternative names
+        const nameAliases = {
+            'sodium hydrogen carbonate': 'sodium bicarbonate',
+            'potassium hydrogen carbonate': 'potassium bicarbonate',
+            'calcium hydrogen carbonate': 'calcium bicarbonate',
+            'magnesium hydrogen carbonate': 'magnesium bicarbonate'
+        };
+
+        function getAcceptedNames(correctName) {
+            const normalized = normalizeName(correctName);
+            const accepted = new Set([normalized]);
+            
+            for (let [standard, alias] of Object.entries(nameAliases)) {
+                if (normalizeName(standard) === normalized) {
+                    accepted.add(normalizeName(alias));
+                }
+                if (normalizeName(alias) === normalized) {
+                    accepted.add(normalizeName(standard));
+                }
+            }
+            return accepted;
+        }
+
+        // ========== EXPANDED QUESTION BANKS ==========
+
+        const ionicQuestions = [
+            // Group 1 - Type I
+            { formula: 'LiF', name: 'lithium fluoride' },
+            { formula: 'LiCl', name: 'lithium chloride' },
+            { formula: 'LiBr', name: 'lithium bromide' },
+            { formula: 'LiI', name: 'lithium iodide' },
+            { formula: 'Li₂O', name: 'lithium oxide' },
+            { formula: 'Li₂S', name: 'lithium sulfide' },
+            { formula: 'Li₃N', name: 'lithium nitride' },
+            { formula: 'Li₂CO₃', name: 'lithium carbonate' },
+            { formula: 'LiNO₃', name: 'lithium nitrate' },
+            { formula: 'Li₂SO₄', name: 'lithium sulfate' },
+            { formula: 'LiOH', name: 'lithium hydroxide' },
+            
+            { formula: 'NaF', name: 'sodium fluoride' },
+            { formula: 'NaCl', name: 'sodium chloride' },
+            { formula: 'NaBr', name: 'sodium bromide' },
+            { formula: 'NaI', name: 'sodium iodide' },
+            { formula: 'Na₂O', name: 'sodium oxide' },
+            { formula: 'Na₂S', name: 'sodium sulfide' },
+            { formula: 'Na₃N', name: 'sodium nitride' },
+            { formula: 'Na₂CO₃', name: 'sodium carbonate' },
+            { formula: 'NaHCO₃', name: 'sodium hydrogen carbonate' },
+            { formula: 'NaNO₃', name: 'sodium nitrate' },
+            { formula: 'NaNO₂', name: 'sodium nitrite' },
+            { formula: 'Na₂SO₄', name: 'sodium sulfate' },
+            { formula: 'Na₂SO₃', name: 'sodium sulfite' },
+            { formula: 'Na₂HPO₄', name: 'sodium hydrogen phosphate' },
+            { formula: 'NaH₂PO₄', name: 'sodium dihydrogen phosphate' },
+            { formula: 'Na₃PO₄', name: 'sodium phosphate' },
+            { formula: 'NaOH', name: 'sodium hydroxide' },
+            { formula: 'NaClO₃', name: 'sodium chlorate' },
+            { formula: 'NaClO₄', name: 'sodium perchlorate' },
+            { formula: 'NaC₂H₃O₂', name: 'sodium acetate' },
+            { formula: 'NaCN', name: 'sodium cyanide' },
+			{ formula: 'NaOCN', name: 'sodium cyanate' },
+			{ formula: 'NaSCN', name: 'sodium thiocyanate' },
+            { formula: 'Na₂CrO₄', name: 'sodium chromate' },
+            { formula: 'Na₂Cr₂O₇', name: 'sodium dichromate' },
+            
+            { formula: 'KF', name: 'potassium fluoride' },
+            { formula: 'KCl', name: 'potassium chloride' },
+            { formula: 'KBr', name: 'potassium bromide' },
+            { formula: 'KI', name: 'potassium iodide' },
+            { formula: 'K₂O', name: 'potassium oxide' },
+            { formula: 'K₂S', name: 'potassium sulfide' },
+            { formula: 'K₃N', name: 'potassium nitride' },
+            { formula: 'K₂CO₃', name: 'potassium carbonate' },
+            { formula: 'KHCO₃', name: 'potassium hydrogen carbonate' },
+            { formula: 'KNO₃', name: 'potassium nitrate' },
+            { formula: 'KNO₂', name: 'potassium nitrite' },
+            { formula: 'K₂SO₄', name: 'potassium sulfate' },
+            { formula: 'K₂SO₃', name: 'potassium sulfite' },
+            { formula: 'K₂HPO₄', name: 'potassium hydrogen phosphate' },
+            { formula: 'KH₂PO₄', name: 'potassium dihydrogen phosphate' },
+            { formula: 'K₃PO₄', name: 'potassium phosphate' },
+            { formula: 'KOH', name: 'potassium hydroxide' },
+            { formula: 'KMnO₄', name: 'potassium permanganate' },
+            { formula: 'KClO₃', name: 'potassium chlorate' },
+            { formula: 'KClO₄', name: 'potassium perchlorate' },
+            { formula: 'KC₂H₃O₂', name: 'potassium acetate' },
+            { formula: 'KCN', name: 'potassium cyanide' },
+			{ formula: 'KSCN', name: 'potassium thiocyanate' },
+            { formula: 'K₂CrO₄', name: 'potassium chromate' },
+            { formula: 'K₂Cr₂O₇', name: 'potassium dichromate' },
+            
+            // Group 2 - Type I
+            { formula: 'MgF₂', name: 'magnesium fluoride' },
+            { formula: 'MgCl₂', name: 'magnesium chloride' },
+            { formula: 'MgBr₂', name: 'magnesium bromide' },
+            { formula: 'MgI₂', name: 'magnesium iodide' },
+            { formula: 'MgO', name: 'magnesium oxide' },
+            { formula: 'MgS', name: 'magnesium sulfide' },
+            { formula: 'Mg₃N₂', name: 'magnesium nitride' },
+            { formula: 'MgCO₃', name: 'magnesium carbonate' },
+            { formula: 'Mg(HCO₃)₂', name: 'magnesium hydrogen carbonate' },
+            { formula: 'Mg(NO₃)₂', name: 'magnesium nitrate' },
+            { formula: 'MgSO₄', name: 'magnesium sulfate' },
+            { formula: 'MgHPO₄', name: 'magnesium hydrogen phosphate' },
+            { formula: 'Mg(H₂PO₄)₂', name: 'magnesium dihydrogen phosphate' },
+            { formula: 'Mg₃(PO₄)₂', name: 'magnesium phosphate' },
+            { formula: 'Mg(OH)₂', name: 'magnesium hydroxide' },
+            { formula: 'Mg(C₂H₃O₂)₂', name: 'magnesium acetate' },
+            
+            { formula: 'CaF₂', name: 'calcium fluoride' },
+            { formula: 'CaCl₂', name: 'calcium chloride' },
+            { formula: 'CaBr₂', name: 'calcium bromide' },
+            { formula: 'CaI₂', name: 'calcium iodide' },
+            { formula: 'CaO', name: 'calcium oxide' },
+            { formula: 'CaS', name: 'calcium sulfide' },
+            { formula: 'Ca₃N₂', name: 'calcium nitride' },
+            { formula: 'CaCO₃', name: 'calcium carbonate' },
+            { formula: 'Ca(HCO₃)₂', name: 'calcium hydrogen carbonate' },
+            { formula: 'Ca(NO₃)₂', name: 'calcium nitrate' },
+            { formula: 'CaSO₄', name: 'calcium sulfate' },
+            { formula: 'CaHPO₄', name: 'calcium hydrogen phosphate' },
+            { formula: 'Ca(H₂PO₄)₂', name: 'calcium dihydrogen phosphate' },
+            { formula: 'Ca₃(PO₄)₂', name: 'calcium phosphate' },
+            { formula: 'Ca(OH)₂', name: 'calcium hydroxide' },
+            { formula: 'Ca(C₂H₃O₂)₂', name: 'calcium acetate' },
+            { formula: 'CaCrO₄', name: 'calcium chromate' },
+            { formula: 'Ca(MnO₄)₂', name: 'calcium permanganate' },
+            
+            { formula: 'SrCl₂', name: 'strontium chloride' },
+            { formula: 'SrO', name: 'strontium oxide' },
+            { formula: 'SrCO₃', name: 'strontium carbonate' },
+            { formula: 'Sr(NO₃)₂', name: 'strontium nitrate' },
+            { formula: 'SrSO₄', name: 'strontium sulfate' },
+            { formula: 'Sr(OH)₂', name: 'strontium hydroxide' },
+            { formula: 'Sr(OCN)₂', name: 'strontium cyanate' },
+            
+            { formula: 'BaF₂', name: 'barium fluoride' },
+            { formula: 'BaCl₂', name: 'barium chloride' },
+            { formula: 'BaO', name: 'barium oxide' },
+            { formula: 'BaS', name: 'barium sulfide' },
+            { formula: 'BaCO₃', name: 'barium carbonate' },
+            { formula: 'Ba(NO₃)₂', name: 'barium nitrate' },
+            { formula: 'BaSO₄', name: 'barium sulfate' },
+            { formula: 'Ba(OH)₂', name: 'barium hydroxide' },
+            { formula: 'Ba₃(PO₄)₂', name: 'barium phosphate' },
+            
+            // Group 13 / Other Type I
+            { formula: 'AlF₃', name: 'aluminum fluoride' },
+            { formula: 'AlCl₃', name: 'aluminum chloride' },
+            { formula: 'AlBr₃', name: 'aluminum bromide' },
+            { formula: 'Al₂O₃', name: 'aluminum oxide' },
+            { formula: 'Al₂S₃', name: 'aluminum sulfide' },
+            { formula: 'AlN', name: 'aluminum nitride' },
+            { formula: 'Al(NO₃)₃', name: 'aluminum nitrate' },
+            { formula: 'Al₂(SO₄)₃', name: 'aluminum sulfate' },
+            { formula: 'Al(OH)₃', name: 'aluminum hydroxide' },
+            { formula: 'AlPO₄', name: 'aluminum phosphate' },
+            { formula: 'Al(C₂H₃O₂)₃', name: 'aluminum acetate' },
+            
+            { formula: 'ZnF₂', name: 'zinc fluoride' },
+            { formula: 'ZnCl₂', name: 'zinc chloride' },
+            { formula: 'ZnBr₂', name: 'zinc bromide' },
+            { formula: 'ZnO', name: 'zinc oxide' },
+            { formula: 'ZnS', name: 'zinc sulfide' },
+            { formula: 'ZnCO₃', name: 'zinc carbonate' },
+            { formula: 'Zn(NO₃)₂', name: 'zinc nitrate' },
+            { formula: 'ZnSO₄', name: 'zinc sulfate' },
+            { formula: 'Zn(OH)₂', name: 'zinc hydroxide' },
+            { formula: 'Zn(C₂H₃O₂)₂', name: 'zinc acetate' },
+            
+            { formula: 'AgF', name: 'silver fluoride' },
+            { formula: 'AgCl', name: 'silver chloride' },
+            { formula: 'AgBr', name: 'silver bromide' },
+            { formula: 'AgI', name: 'silver iodide' },
+            { formula: 'Ag₂O', name: 'silver oxide' },
+            { formula: 'Ag₂S', name: 'silver sulfide' },
+            { formula: 'AgNO₃', name: 'silver nitrate' },
+            { formula: 'Ag₂SO₄', name: 'silver sulfate' },
+            { formula: 'AgCN', name: 'silver cyanide' },
+            { formula: 'AgOCN', name: 'silver cyanate' },
+            { formula: 'AgSCN', name: 'silver thiocyanate' },
+            
+            // Type II - Transition metals
+            { formula: 'CuCl', name: 'copper(I) chloride' },
+            { formula: 'CuCl₂', name: 'copper(II) chloride' },
+            { formula: 'CuBr', name: 'copper(I) bromide' },
+            { formula: 'CuBr₂', name: 'copper(II) bromide' },
+            { formula: 'CuO', name: 'copper(II) oxide' },
+            { formula: 'Cu₂O', name: 'copper(I) oxide' },
+            { formula: 'CuS', name: 'copper(II) sulfide' },
+            { formula: 'Cu₂S', name: 'copper(I) sulfide' },
+            { formula: 'Cu(NO₃)₂', name: 'copper(II) nitrate' },
+            { formula: 'CuSO₄', name: 'copper(II) sulfate' },
+            { formula: 'CuCO₃', name: 'copper(II) carbonate' },
+            { formula: 'Cu(OH)₂', name: 'copper(II) hydroxide' },
+            
+            { formula: 'FeO', name: 'iron(II) oxide' },
+            { formula: 'Fe₂O₃', name: 'iron(III) oxide' },
+            { formula: 'FeS', name: 'iron(II) sulfide' },
+            { formula: 'Fe₂S₃', name: 'iron(III) sulfide' },
+            { formula: 'FeCl₂', name: 'iron(II) chloride' },
+            { formula: 'FeCl₃', name: 'iron(III) chloride' },
+            { formula: 'Fe(NO₃)₂', name: 'iron(II) nitrate' },
+            { formula: 'Fe(NO₃)₃', name: 'iron(III) nitrate' },
+            { formula: 'FeSO₄', name: 'iron(II) sulfate' },
+            { formula: 'Fe₂(SO₄)₃', name: 'iron(III) sulfate' },
+            { formula: 'FeCO₃', name: 'iron(II) carbonate' },
+            { formula: 'Fe(SCN)₂', name: 'iron(II) thiocyanate' },
+            { formula: 'Fe(SCN)₃', name: 'iron(III) thiocyanate' },
+            
+            { formula: 'PbCl₂', name: 'lead(II) chloride' },
+            { formula: 'PbCl₄', name: 'lead(IV) chloride' },
+            { formula: 'PbO', name: 'lead(II) oxide' },
+            { formula: 'PbO₂', name: 'lead(IV) oxide' },
+            { formula: 'PbS', name: 'lead(II) sulfide' },
+            { formula: 'Pb(NO₃)₂', name: 'lead(II) nitrate' },
+            { formula: 'PbSO₄', name: 'lead(II) sulfate' },
+            { formula: 'PbCO₃', name: 'lead(II) carbonate' },
+            
+            { formula: 'SnCl₂', name: 'tin(II) chloride' },
+            { formula: 'SnCl₄', name: 'tin(IV) chloride' },
+            { formula: 'SnO', name: 'tin(II) oxide' },
+            { formula: 'SnO₂', name: 'tin(IV) oxide' },
+            { formula: 'SnS', name: 'tin(II) sulfide' },
+            { formula: 'Sn(NO₃)₂', name: 'tin(II) nitrate' },
+            
+            { formula: 'CoO', name: 'cobalt(II) oxide' },
+            { formula: 'Co₂O₃', name: 'cobalt(III) oxide' },
+            { formula: 'CoCl₂', name: 'cobalt(II) chloride' },
+            { formula: 'CoCl₃', name: 'cobalt(III) chloride' },
+            { formula: 'Co(NO₃)₂', name: 'cobalt(II) nitrate' },
+            { formula: 'Co(NO₃)₃', name: 'cobalt(III) nitrate' },
+            
+            { formula: 'MnO', name: 'manganese(II) oxide' },
+            { formula: 'MnO₂', name: 'manganese(IV) oxide' },
+            { formula: 'MnCl₂', name: 'manganese(II) chloride' },
+            { formula: 'MnCl₄', name: 'manganese(IV) chloride' },
+            
+            { formula: 'CrCl₂', name: 'chromium(II) chloride' },
+            { formula: 'CrCl₃', name: 'chromium(III) chloride' },
+            { formula: 'CrO₂', name: 'chromium(IV) oxide' },
+            { formula: 'CrO₃', name: 'chromium(VI) oxide' },
+            { formula: 'Cr₂O₃', name: 'chromium(III) oxide' },
+            
+            { formula: 'NiO', name: 'nickel(II) oxide' },
+            { formula: 'NiCl₂', name: 'nickel(II) chloride' },
+            { formula: 'NiS', name: 'nickel(II) sulfide' },
+            { formula: 'Ni(NO₃)₂', name: 'nickel(II) nitrate' },
+            { formula: 'NiSO₄', name: 'nickel(II) sulfate' },
+            
+            { formula: 'Hg₂Cl₂', name: 'mercury(I) chloride' },
+            { formula: 'HgCl₂', name: 'mercury(II) chloride' },
+            { formula: 'HgO', name: 'mercury(II) oxide' },
+            { formula: 'HgS', name: 'mercury(II) sulfide' },
+            { formula: 'Hg(NO₃)₂', name: 'mercury(II) nitrate' },
+            
+            { formula: 'AuCl', name: 'gold(I) chloride' },
+            { formula: 'AuCl₃', name: 'gold(III) chloride' },
+            
+            // Ammonium compounds
+            { formula: 'NH₄Cl', name: 'ammonium chloride' },
+            { formula: 'NH₄Br', name: 'ammonium bromide' },
+            { formula: 'NH₄I', name: 'ammonium iodide' },
+            { formula: 'NH₄F', name: 'ammonium fluoride' },
+            { formula: 'NH₄OCN', name: 'ammonium cyanate' },
+            { formula: 'NH₄SCN', name: 'ammonium thiocyanate' },
+            { formula: '(NH₄)₂S', name: 'ammonium sulfide' },
+            { formula: 'NH₄NO₃', name: 'ammonium nitrate' },
+            { formula: '(NH₄)₂SO₄', name: 'ammonium sulfate' },
+            { formula: '(NH₄)₂CO₃', name: 'ammonium carbonate' },
+            { formula: 'NH₄C₂H₃O₂', name: 'ammonium acetate' }
+        ];
+
+        const molecularQuestions = [
+            { formula: 'CO', name: 'carbon monoxide' },
+            { formula: 'CO₂', name: 'carbon dioxide' },
+            { formula: 'SO₂', name: 'sulfur dioxide' },
+            { formula: 'SO₃', name: 'sulfur trioxide' },
+            { formula: 'NO', name: 'nitrogen monoxide' },
+            { formula: 'NO₂', name: 'nitrogen dioxide' },
+            { formula: 'N₂O', name: 'dinitrogen monoxide' },
+            { formula: 'N₂O₃', name: 'dinitrogen trioxide' },
+            { formula: 'N₂O₄', name: 'dinitrogen tetroxide' },
+            { formula: 'N₂O₅', name: 'dinitrogen pentoxide' },
+            { formula: 'Cl₂O', name: 'dichlorine monoxide' },
+            { formula: 'ClO₂', name: 'chlorine dioxide' },
+            { formula: 'Cl₂O₆', name: 'dichlorine hexoxide' },
+            { formula: 'Cl₂O₇', name: 'dichlorine heptoxide' },
+            { formula: 'PCl₃', name: 'phosphorus trichloride' },
+            { formula: 'PCl₅', name: 'phosphorus pentachloride' },
+            { formula: 'PBr₃', name: 'phosphorus tribromide' },
+            { formula: 'PBr₅', name: 'phosphorus pentabromide' },
+            { formula: 'PF₃', name: 'phosphorus trifluoride' },
+            { formula: 'PF₅', name: 'phosphorus pentafluoride' },
+            { formula: 'PI₃', name: 'phosphorus triiodide' },
+            { formula: 'SF₄', name: 'sulfur tetrafluoride' },
+            { formula: 'SF₆', name: 'sulfur hexafluoride' },
+            { formula: 'SCl₂', name: 'sulfur dichloride' },
+            { formula: 'S₂Cl₂', name: 'disulfur dichloride' },
+            { formula: 'OF₂', name: 'oxygen difluoride' },
+            { formula: 'O₂F₂', name: 'dioxygen difluoride' },
+            { formula: 'NF₃', name: 'nitrogen trifluoride' },
+            { formula: 'NCl₃', name: 'nitrogen trichloride' },
+            { formula: 'CCl₄', name: 'carbon tetrachloride' },
+            { formula: 'CF₄', name: 'carbon tetrafluoride' },
+            { formula: 'CBr₄', name: 'carbon tetrabromide' },
+            { formula: 'CI₄', name: 'carbon tetraiodide' },
+            { formula: 'SiCl₄', name: 'silicon tetrachloride' },
+            { formula: 'SiF₄', name: 'silicon tetrafluoride' },
+            { formula: 'SiBr₄', name: 'silicon tetrabromide' },
+            { formula: 'BCl₃', name: 'boron trichloride' },
+            { formula: 'BBr₃', name: 'boron tribromide' },
+            { formula: 'BF₃', name: 'boron trifluoride' },
+            { formula: 'BI₃', name: 'boron triiodide' },
+            { formula: 'AsCl₃', name: 'arsenic trichloride' },
+            { formula: 'AsF₃', name: 'arsenic trifluoride' },
+            { formula: 'AsBr₃', name: 'arsenic tribromide' },
+            { formula: 'SeF₆', name: 'selenium hexafluoride' },
+            { formula: 'SeO₂', name: 'selenium dioxide' },
+            { formula: 'SeO₃', name: 'selenium trioxide' },
+            { formula: 'TeF₆', name: 'tellurium hexafluoride' },
+            { formula: 'TeO₂', name: 'tellurium dioxide' },
+            { formula: 'XeF₂', name: 'xenon difluoride' },
+            { formula: 'XeF₄', name: 'xenon tetrafluoride' },
+            { formula: 'XeF₆', name: 'xenon hexafluoride' },
+            { formula: 'CS₂', name: 'carbon disulfide' },
+            { formula: 'COS', name: 'carbonyl sulfide' },
+            { formula: 'P₂O₅', name: 'diphosphorus pentoxide' },
+            { formula: 'P₂O₃', name: 'diphosphorus trioxide' },
+            { formula: 'As₂O₃', name: 'diarsenic trioxide' },
+            { formula: 'As₂O₅', name: 'diarsenic pentoxide' },
+            { formula: 'N₂F₂', name: 'dinitrogen difluoride' },
+            { formula: 'N₂F₄', name: 'dinitrogen tetrafluoride' }
+        ];
+
+        const acidQuestions = [
+            { formula: 'HF', name: 'hydrofluoric acid' },
+            { formula: 'HCl', name: 'hydrochloric acid' },
+            { formula: 'HBr', name: 'hydrobromic acid' },
+            { formula: 'HI', name: 'hydroiodic acid' },
+            { formula: 'H₂S', name: 'hydrosulfuric acid' },
+            { formula: 'H₂Se', name: 'hydroselenic acid' },
+            { formula: 'H₂Te', name: 'hydrotelluric acid' },
+            { formula: 'HNO₃', name: 'nitric acid' },
+            { formula: 'HNO₂', name: 'nitrous acid' },
+            { formula: 'H₂SO₄', name: 'sulfuric acid' },
+            { formula: 'H₂SO₃', name: 'sulfurous acid' },
+          /*  { formula: 'H₂SeO₄', name: 'selenic acid' },
+            { formula: 'H₂SeO₃', name: 'selenous acid' },
+            { formula: 'H₂TeO₄', name: 'telluric acid' },
+            { formula: 'H₂TeO₃', name: 'tellurous acid' }, */
+            { formula: 'H₃PO₄', name: 'phosphoric acid' },
+            { formula: 'H₃PO₃', name: 'phosphorous acid' },
+            { formula: 'H₃PO₂', name: 'hypophosphorous acid' },
+         /*   { formula: 'H₃AsO₄', name: 'arsenic acid' },
+            { formula: 'H₃AsO₃', name: 'arsenous acid' }, */
+            { formula: 'H₂CO₃', name: 'carbonic acid' },
+         /*   { formula: 'H₂SiO₃', name: 'silicic acid' }, */
+            { formula: 'HClO₄', name: 'perchloric acid' },
+            { formula: 'HClO₃', name: 'chloric acid' },
+            { formula: 'HClO₂', name: 'chlorous acid' },
+            { formula: 'HClO', name: 'hypochlorous acid' },
+            { formula: 'HBrO₄', name: 'perbromic acid' },
+            { formula: 'HBrO₃', name: 'bromic acid' },
+            { formula: 'HBrO₂', name: 'bromous acid' },
+            { formula: 'HBrO', name: 'hypobromous acid' },
+            { formula: 'HIO₄', name: 'periodic acid' },
+            { formula: 'HIO₃', name: 'iodic acid' },
+            { formula: 'HIO₂', name: 'iodous acid' },
+            { formula: 'HIO', name: 'hypoiodous acid' },
+         /*   { formula: 'HMnO₄', name: 'permanganic acid' },
+            { formula: 'H₂CrO₄', name: 'chromic acid' },
+            { formula: 'H₂Cr₂O₇', name: 'dichromic acid' }, */
+            { formula: 'HCN', name: 'hydrocyanic acid' },
+            { formula: 'CH₃COOH', name: 'acetic acid' },         
+            { formula: 'H₂C₂O₄', name: 'oxalic acid' },
+            { formula: 'H₃BO₃', name: 'boric acid' }
+		/*   { formula: 'HCOOH', name: 'formic acid' } */	
+        ];
+
+        // State
+        let currentMode = 'ionic';
+        let currentDirection = 'formula-to-name';
+        let currentQuestion = null;
+        let streak = 0;
+        
+        // App data structure: stats + mistakes for weakness drill
+        let appData = {
+            stats: {
+                total: 0,
+                correct: 0,
+                ionic: { correct: 0, total: 0 },
+                molecular: { correct: 0, total: 0 },
+                acid: { correct: 0, total: 0 }
+            },
+            mistakes: {} // key: formula, value: { count, category }
+        };
+
+        function loadData() {
+            const saved = localStorage.getItem('chemAppData');
+            if (saved) {
+                const parsed = JSON.parse(saved);
+                // Merge with defaults for backwards compatibility
+                appData = {
+                    stats: parsed.stats || appData.stats,
+                    mistakes: parsed.mistakes || {}
+                };
+            }
+            updateDashboard();
+        }
+
+        function saveData() {
+            localStorage.setItem('chemAppData', JSON.stringify(appData));
+        }
+
+        function updateDashboard() {
+            const stats = appData.stats;
+            document.getElementById('total-attempted').textContent = stats.total;
+            document.getElementById('total-correct').textContent = stats.correct;
+            document.getElementById('accuracy').textContent = stats.total > 0 ? 
+                Math.round((stats.correct / stats.total) * 100) + '%' : '0%';
+            document.getElementById('current-streak').textContent = streak;
+            document.getElementById('weakness-count').textContent = Object.keys(appData.mistakes).length;
+
+            ['ionic', 'molecular', 'acid'].forEach(type => {
+                const pct = stats[type].total > 0 ? 
+                    Math.round((stats[type].correct / stats[type].total) * 100) : 0;
+                document.getElementById(type + '-pct').textContent = pct + '%';
+                document.getElementById(type + '-bar').style.width = pct + '%';
+            });
+        }
+
+        function resetProgress() {
+            if (confirm('Are you sure? This will permanently delete all stats, streaks, and weakness data.')) {
+                appData = {
+                    stats: {
+                        total: 0,
+                        correct: 0,
+                        ionic: { correct: 0, total: 0 },
+                        molecular: { correct: 0, total: 0 },
+                        acid: { correct: 0, total: 0 }
+                    },
+                    mistakes: {}
+                };
+                streak = 0;
+                saveData();
+                updateDashboard();
+                alert('All progress has been reset.');
+            }
+        }
+
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            event.target.classList.add('active');
+            
+            if (sectionId === 'dashboard') updateDashboard();
+            if (sectionId === 'practice') generateQuestion();
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-selector')[0].querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            generateQuestion();
+        }
+
+        function setDirection(direction) {
+            currentDirection = direction;
+            document.querySelectorAll('.mode-selector')[1].querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            generateQuestion();
+        }
+
+        function getWeaknessPool() {
+            const all = [...ionicQuestions, ...molecularQuestions, ...acidQuestions];
+            return all.filter(q => appData.mistakes[q.formula] && appData.mistakes[q.formula].count > 0);
+        }
+
+        function getWeaknessQuestion() {
+            const pool = getWeaknessPool();
+            if (pool.length === 0) return null;
+            
+            // Weighted random by mistake count
+            const totalWeight = pool.reduce((sum, q) => sum + appData.mistakes[q.formula].count, 0);
+            let rand = Math.random() * totalWeight;
+            
+            for (let q of pool) {
+                rand -= appData.mistakes[q.formula].count;
+                if (rand <= 0) return q;
+            }
+            return pool[pool.length - 1];
+        }
+
+        function getQuestionBank() {
+            if (currentMode === 'weakness') {
+                return getWeaknessQuestion();
+            }
+            if (currentMode === 'mixed') {
+                const all = [...ionicQuestions, ...molecularQuestions, ...acidQuestions];
+                return all[Math.floor(Math.random() * all.length)];
+            }
+            const banks = { ionic: ionicQuestions, molecular: molecularQuestions, acid: acidQuestions };
+            const bank = banks[currentMode];
+            return bank[Math.floor(Math.random() * bank.length)];
+        }
+
+        function getQuestionType(q) {
+            if (ionicQuestions.includes(q)) return 'Ionic Compound';
+            if (molecularQuestions.includes(q)) return 'Binary Molecular';
+            return 'Acid';
+        }
+
+        function generateQuestion() {
+            const input = document.getElementById('answer-input');
+            const inputGroup = document.getElementById('input-group');
+            
+            currentQuestion = getQuestionBank();
+            
+            if (currentMode === 'weakness' && !currentQuestion) {
+                document.getElementById('question-type').textContent = 'Weakness Drill';
+                document.getElementById('question').innerHTML = '🎉 No Weaknesses!';
+                inputGroup.style.display = 'none';
+                document.getElementById('hint-text').textContent = 'You have cleared your mistake queue! Switch to another mode to keep practicing.';
+                document.getElementById('feedback').className = 'feedback';
+                return;
+            }
+            
+            inputGroup.style.display = 'flex';
+            input.disabled = false;
+            
+            const type = getQuestionType(currentQuestion);
+            document.getElementById('question-type').textContent = currentMode === 'weakness' ? '🎯 Weakness Drill — ' + type : type;
+            
+            if (currentDirection === 'formula-to-name') {
+                document.getElementById('question').textContent = currentQuestion.formula;
+                input.placeholder = 'Enter compound name...';
+            } else {
+                document.getElementById('question').textContent = currentQuestion.name;
+                input.placeholder = 'Enter formula...';
+            }
+            
+            input.value = '';
+            document.getElementById('feedback').className = 'feedback';
+            document.getElementById('hint-text').textContent = '';
+            input.focus();
+        }
+
+        function normalizeName(name) {
+            return name.toLowerCase().trim().replace(/\s+/g, ' ');
+        }
+
+        function normalizeFormula(formula) {
+            return toPlainText(formula).toLowerCase().trim().replace(/\s+/g, '');
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('answer-input');
+            if (!input.value.trim()) return;
+
+            let isCorrect = false;
+
+            if (currentDirection === 'formula-to-name') {
+                const userAns = normalizeName(input.value);
+                const acceptedNames = getAcceptedNames(currentQuestion.name);
+                isCorrect = acceptedNames.has(userAns) || acceptedNames.has(userAns.replace(/[()]/g, ''));
+            } else {
+                const userAns = normalizeFormula(input.value);
+                const correctAns = normalizeFormula(currentQuestion.formula);
+                isCorrect = userAns === correctAns;
+            }
+
+            const stats = appData.stats;
+            stats.total++;
+            const typeKey = getQuestionType(currentQuestion).toLowerCase().includes('ionic') ? 'ionic' :
+                        getQuestionType(currentQuestion).toLowerCase().includes('molecular') ? 'molecular' : 'acid';
+            stats[typeKey].total++;
+
+            const feedback = document.getElementById('feedback');
+            
+            if (isCorrect) {
+                stats.correct++;
+                stats[typeKey].correct++;
+                streak++;
+                
+                // If in weakness mode, reduce mistake count
+                if (currentMode === 'weakness' && appData.mistakes[currentQuestion.formula]) {
+                    appData.mistakes[currentQuestion.formula].count--;
+                    if (appData.mistakes[currentQuestion.formula].count <= 0) {
+                        delete appData.mistakes[currentQuestion.formula];
+                    }
+                }
+                
+                feedback.className = 'feedback correct';
+                feedback.innerHTML = `✅ Correct! Well done.<br><small>Answer: ${currentDirection === 'formula-to-name' ? currentQuestion.name : currentQuestion.formula}</small>`;
+                setTimeout(generateQuestion, 1500);
+            } else {
+                streak = 0;
+                
+                // Log mistake
+                if (!appData.mistakes[currentQuestion.formula]) {
+                    appData.mistakes[currentQuestion.formula] = { count: 0, category: typeKey };
+                }
+                appData.mistakes[currentQuestion.formula].count++;
+                
+                feedback.className = 'feedback incorrect';
+                feedback.innerHTML = `❌ Not quite. The correct answer is:<br><strong>${currentDirection === 'formula-to-name' ? currentQuestion.name : currentQuestion.formula}</strong>`;
+            }
+
+            document.getElementById('streak-display').textContent = streak;
+            saveData();
+            updateDashboard();
+        }
+
+        function showHint() {
+            const hints = {
+                'Ionic Compound': 'Remember: metal name + nonmetal root + -ide. Use Roman numerals for transition metals!',
+                'Binary Molecular': 'Use Greek prefixes. Drop "mono-" on the first element only.',
+                'Acid': 'Binary: hydro- + root + -ic acid. Oxyacid: -ate → -ic, -ite → -ous.'
+            };
+            const type = getQuestionType(currentQuestion);
+            document.getElementById('hint-text').textContent = hints[type];
+        }
+
+        function skipQuestion() {
+            streak = 0;
+            document.getElementById('streak-display').textContent = streak;
+            generateQuestion();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadData();
+            generateQuestion();
+            
+            const input = document.getElementById('answer-input');
+            
+            input.addEventListener('input', function() {
+                formatChemInput(this);
+            });
+            
+            input.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') checkAnswer();
+            });
+        });
+    </script>
+</body>
+</html>
